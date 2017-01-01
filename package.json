@@ -1,0 +1,14 @@
+{
+  "name": "bgg-app",
+  "version": "0.1.0",
+  "description": "Desktop application for boardgamegeek.com created with Electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/EthanCabbage/bgg-app.git",
+  "author": "Ethan Cabbage",
+  "devDependencies": {
+    "electron": "^1.4.13"
+  }
+}
