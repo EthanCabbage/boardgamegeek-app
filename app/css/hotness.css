@@ -34,7 +34,31 @@
   border-radius: 5px 5px 0px 0px;
 }
 
-/* Small/medium side display */
+.center-vertical {
+  margin-top: 40px;
+}
+
+img {
+  margin: auto;
+  max-height: 80px;
+  max-width: 80px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  vertical-align: middle;
+}
+
+#hotness-list>li {
+  border: 1px #000 solid;
+  border-top: 0;
+  list-style-type: none;
+  height: 124px;
+}
+
+#hotness-list {
+  padding: 0;
+}
+
+/* Small/medium size display. */
 @media (min-width: 768px) {
   /* In every size above mobile, the options will be side-by-side.
       Adjust the rounding accordingly. */
@@ -44,5 +68,34 @@
 
   .last-tab {
     border-radius: 0px 5px 0px 0px;
+  }
+
+  .center-vertical {
+    margin-top: 60px;
+  }
+
+  img {
+    max-height: 120px;
+    max-width: 120px;
+  }
+
+  #hotness-list>li {
+    height: 144px;
+  }
+}
+
+/* Large size display. */
+@media (min-width: 1330px) {
+  .center-vertical {
+    margin-top: 80px;
+  }
+
+  img {
+    max-height: 160px;
+    max-width: 160px;
+  }
+
+  #hotness-list>li {
+    height: 184px;
   }
 }
