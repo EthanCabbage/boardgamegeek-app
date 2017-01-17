@@ -1,0 +1,48 @@
+.content-tab {
+  text-align: center;
+  text-decoration: none;
+  border: 1px #000 solid;
+  cursor: pointer;
+}
+
+.content-tab:hover {
+  background-color: #254c73;
+}
+
+.content-tab:hover a, .content-tab:focus a {
+  color: #CCC;
+}
+
+.content-tab>a:hover, .content-tab>a:visited, .content-tab>a:link, .content-tab>a:active {
+  text-decoration: none;
+}
+
+.content-tab>a {
+  color: #000;
+}
+
+.content-tab.active {
+  background-color: #1d3b59;
+  color: #fff;
+}
+
+.content-tab.active>a {
+  color: #fff;
+}
+
+.first-tab {
+  border-radius: 5px 5px 0px 0px;
+}
+
+/* Small/medium side display */
+@media (min-width: 768px) {
+  /* In every size above mobile, the options will be side-by-side.
+      Adjust the rounding accordingly. */
+  .first-tab {
+    border-radius: 5px 0px 0px 0px;
+  }
+
+  .last-tab {
+    border-radius: 0px 5px 0px 0px;
+  }
+}
