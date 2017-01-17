@@ -1,23 +1,68 @@
-$(document).ready(function() {
-	var main_div = $("div#main-div");
-	$.ajax({
-		type: 'GET',
-		url: 'https://www.boardgamegeek.com/xmlapi2/thing?id=113924',
-		dataType: 'XML',
-		success: function(xml) {
-			var items = $(xml).find("items")[0];
-			var item = $(items).children("item");
-			var title = $(item).children("name")[0];
-			title = $(title).attr("value");
-			// TODO: Fix this, it isn't showing up
-			console.log(title);
-			console.log(main_div);
-			main_div.append(
-				"<h1>" + title + "</h1>"
-			);
-		},
-		error: function(message) {
-			alert(message);
-		}
+// TODO: Remove this when not editing!
+document.addEventListener("keydown", function (e) {
+	if (e.which === 116) {
+		location.reload();
+	}
+});
+
+// function htmlbodyHeightUpdate() {
+// 	var height3 = $(window).height()
+// 	var height1 = $('.nav').height()+50
+// 	height2 = $('.main').height()
+// 	if(height2 > height3){
+// 		$('html').height(Math.max(height1,height3,height2)+10);
+// 		$('body').height(Math.max(height1,height3,height2)+10);
+// 	}
+// 	else
+// 	{
+// 		$('html').height(Math.max(height1,height3,height2));
+// 		$('body').height(Math.max(height1,height3,height2));
+// 	}
+// }
+
+function setActiveItem(item) {
+	$(item).siblings().removeClass("active");
+	$(item).addClass("active");
+}
+
+$(document).ready(function () {
+	// htmlbodyHeightUpdate();
+	//
+	// $(window).resize(function() {
+	// 	htmlbodyHeightUpdate();
+	// });
+	//
+	// $(window).scroll(function() {
+	// 	height2 = $('.main').height();
+	// 	htmlbodyHeightUpdate();
+	// });
+
+	$.get("homepage.html", function(data) {
+		$("#page-content").html(data);
+	});
+	$("#page-title").text("BoardGameGeek");
+
+	$("#navbar-search").click(function() {
+		setActiveItem(this);
+		$.get("search.html", function(data) {
+			$("#page-content").html(data);
+		});
+		$("#page-title").text("Search");
+	});
+
+	$("#navbar-home").click(function() {
+		setActiveItem(this);
+		$.get("homepage.html", function(data) {
+			$("#page-content").html(data);
+		});
+		$("#page-title").text("BoardGameGeek");
+	});
+
+	$("#navbar-hotness").click(function() {
+		setActiveItem(this);
+		$.get("hotness.html", function(data) {
+			$("#page-content").html(data);
+		});
+		$("#page-title").text("The Hotness");
 	});
 });

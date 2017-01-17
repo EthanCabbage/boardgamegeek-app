@@ -11,17 +11,17 @@ function createWindow() {
 		height: 600,
 		width: 800
 	});
-	
+
 	mainWindow.maximize();
-	
+
 	mainWindow.loadURL(url.format({
 		pathname: path.join(__dirname, './app/index.html'),
 		protocol: 'file:',
 		slashes: true
 	}));
-	
-	mainWindow.webContents.openDevTools();
-	
+
+	// mainWindow.webContents.openDevTools();
+
 	mainWindow.on('closed', function() {
 		mainWindow = null;
 	});
@@ -42,4 +42,3 @@ app.on('activate', function() {
 		createWindow();
 	}
 });
-

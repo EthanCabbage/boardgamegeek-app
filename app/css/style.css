@@ -1,0 +1,17 @@
+h1 {
+  
+}
+
+.no-side-padding {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.no-side-margin {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.container {
+  width: 100%;
+}
