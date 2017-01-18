@@ -37,6 +37,21 @@ function populateHotGames() {
     success: function(result) {
       var hotness_list = $("#hotness-list");
       hotness_list.empty();
+
+      hotness_list.parent().prepend(
+        "<div class='row'>" +
+          "<div class='col-sm-3 center-text header-row first-header'>" +
+            "Box Art" +
+          "</div>" +
+          "<div class='col-sm-6 center-text header-row'>" +
+            "Title" +
+          "</div>" +
+          "<div class='col-sm-3 center-text header-row last-header'>" +
+            "Year Published" +
+          "</div>" +
+        "</div>"
+      );
+
       $(result).find("items").each(function() {
         $(this).find("item").each(function() {
           var id = $(this).attr("id");
@@ -47,16 +62,15 @@ function populateHotGames() {
           hotness_list.append(
             "<li>" +
               "<div class='row'>" +
-                "<div class='col-sm-3 frame'>" +
-                  "<span class='helper'></span>" +
+                "<div class='col-sm-3'>" +
                   "<img src='http:" + thumbnail + "'>" +
                 "</div>" +
-                "<div class='col-sm-7 center-vertical'>" +
+                "<div class='col-sm-6 center-vertical'>" +
                   "<a href='#'>" +
                     name +
                   "</a>" +
                 "</div>" +
-                "<div class='col-sm-2 center-vertical'>" +
+                "<div class='col-sm-3 center-text center-vertical'>" +
                     year_published +
                 "</div>" +
               "</div>" +

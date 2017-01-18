@@ -1,5 +1,5 @@
 h1 {
-  
+
 }
 
 .no-side-padding {
@@ -14,4 +14,8 @@ h1 {
 
 .container {
   width: 100%;
+}
+
+.center-text {
+  text-align: center;
 }
