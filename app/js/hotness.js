@@ -35,8 +35,10 @@ function populateHotGames() {
     url: "https://www.boardgamegeek.com/xmlapi2/hot?type=boardgame",
     dataType: "xml",
     success: function(result) {
+      var hotness_contents = $("#hotness-contents");
+      hotness_contents.empty();
+      hotness_contents.append("<ul id='hotness-list'></ul>");
       var hotness_list = $("#hotness-list");
-      hotness_list.empty();
 
       hotness_list.parent().prepend(
         "<div class='row'>" +
@@ -62,15 +64,21 @@ function populateHotGames() {
           hotness_list.append(
             "<li>" +
               "<div class='row'>" +
-                "<div class='col-sm-3'>" +
+                "<div class='col-sm-2'>" +
                   "<img src='http:" + thumbnail + "'>" +
+                "</div>" +
+                "<div class='col-sm-1'>" +
+                  "<hr width='1' size='500'>" +
                 "</div>" +
                 "<div class='col-sm-6 center-vertical'>" +
                   "<a href='#'>" +
                     name +
                   "</a>" +
                 "</div>" +
-                "<div class='col-sm-3 center-text center-vertical'>" +
+                "<div class='col-sm-1'>" +
+                  "<hr width='1' size='500'>" +
+                "</div>" +
+                "<div class='col-sm-2 center-text center-vertical'>" +
                     year_published +
                 "</div>" +
               "</div>" +
