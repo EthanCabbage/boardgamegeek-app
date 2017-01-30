@@ -1,8 +1,27 @@
+.container {
+  background-color: #fff;
+  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.15);
+  border-radius: 3px 3px 3px 3px;
+  border: 1px #000 solid;
+}
+
+.content-tab-container {
+  border-radius: 3px 3px 0px 0px;
+  background-color: #1d3b59;
+  height: 40px;
+}
+
+#content {
+  margin-bottom: 10px;
+}
+
 .content-tab {
   text-align: center;
   text-decoration: none;
-  border: 1px #000 solid;
   cursor: pointer;
+  height: 40px;
+  padding-top: 10px;
+  border-left: 1px #000 solid;
 }
 
 .content-tab:hover {
@@ -10,7 +29,7 @@
 }
 
 .content-tab:hover a, .content-tab:focus a {
-  color: #CCC;
+  color: #fff;
 }
 
 .content-tab>a:hover, .content-tab>a:visited, .content-tab>a:link, .content-tab>a:active {
@@ -18,39 +37,40 @@
 }
 
 .content-tab>a {
-  color: #000;
+  color: #CCC;
 }
 
 .content-tab.active {
-  background-color: #1d3b59;
+  background-color: #142a40;
   color: #fff;
+  font-weight: bold;
 }
 
 .content-tab.active>a {
   color: #fff;
 }
 
-hr {
-  border-left: 1px #000 solid;
+.content-tab.first-tab {
+  border-radius: 3px 0px 0px 0px;
+  border: none;
 }
 
-.first-tab {
-  border-radius: 5px 5px 0px 0px;
+.content-tab.last-tab {
+  border-radius: 0px 3px 0px 0px;
 }
 
 .header-row {
-  border: 1px #000 solid;
   text-align: center;
 }
 
 .center-vertical {
-  margin-top: 40px;
+  margin-top: 60px;
 }
 
 img {
   display: block;
-  max-height: 80px;
-  max-width: 80px;
+  max-height: 120px;
+  max-width: 120px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 12px;
@@ -59,64 +79,16 @@ img {
 }
 
 #hotness-list>li {
+  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.15);
   border: 1px #000 solid;
-  border-radius: 5px 5px 5px 5px;
+  border-radius: 3px;
   margin: 12px;
   list-style-type: none;
-  height: 124px;
+  height: 144px;
 }
 
 #hotness-list {
   padding: 0;
-}
-
-/* Small/medium size display. */
-@media (min-width: 768px) {
-  /* In every size above mobile, the options will be side-by-side.
-      Adjust the rounding accordingly. */
-
-  #hotness-contents {
-    border: 1px #000 solid;
-  }
-
-  .first-tab {
-    border-width: 1px 0px 1px 1px;
-    border-radius: 5px 0px 0px 0px;
-  }
-
-  .last-tab {
-    border-width: 1px 1px 1px 0px;
-    border-radius: 0px 5px 0px 0px;
-  }
-
-  .header-row {
-    border-width: 0px 1px 1px 1px;
-  }
-
-  .first-header {
-    border-width: 0px 0px 1px 1px;
-  }
-
-  .last-header {
-    border-width: 0px 1px 1px 0px;
-  }
-
-  .center-vertical {
-    margin-top: 60px;
-  }
-
-  .container {
-    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.35);
-  }
-
-  img {
-    max-height: 120px;
-    max-width: 120px;
-  }
-
-  #hotness-list>li {
-    height: 144px;
-  }
 }
 
 /* Large size display. */

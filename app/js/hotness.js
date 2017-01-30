@@ -40,19 +40,19 @@ function populateHotGames() {
       hotness_contents.append("<ul id='hotness-list'></ul>");
       var hotness_list = $("#hotness-list");
 
-      hotness_list.parent().prepend(
-        "<div class='row'>" +
-          "<div class='col-sm-3 center-text header-row first-header'>" +
-            "Box Art" +
-          "</div>" +
-          "<div class='col-sm-6 center-text header-row'>" +
-            "Title" +
-          "</div>" +
-          "<div class='col-sm-3 center-text header-row last-header'>" +
-            "Year Published" +
-          "</div>" +
-        "</div>"
-      );
+      //hotness_list.parent().prepend(
+        //"<div class='row'>" +
+          //"<div class='col-sm-3 center-text header-row first-header'>" +
+            //"Box Art" +
+          //"</div>" +
+          //"<div class='col-sm-6 center-text header-row'>" +
+            //"Title" +
+          //"</div>" +
+          //"<div class='col-sm-3 center-text header-row last-header'>" +
+            //"Year Published" +
+          //"</div>" +
+        //"</div>"
+      //);
 
       $(result).find("items").each(function() {
         $(this).find("item").each(function() {

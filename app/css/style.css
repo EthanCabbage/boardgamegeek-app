@@ -1,5 +1,13 @@
-h1 {
+/*      Color Palette:      *
+ * ======================== *
+ * blue highlight : #254c73 *
+ * blue base      : #1d3b59 *
+ * blue select    : #142a40 *
+ * gray background: #e5e5e5 */
 
+body {
+  background-color: #e5e5e5;
+  min-width: 768px;
 }
 
 .no-side-padding {

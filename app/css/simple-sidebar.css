@@ -25,9 +25,12 @@ nav.sidebar div.navbar-header>a {
 }
 
 nav.sidebar>div.container-fluid>div.navbar-collapse>ul.navbar-nav>li.active>a {
+/*
   background-image: none;
   background-repeat: no-repeat;
+*/
   background-color: #142a40;
+  font-weight: bold;
 }
 
 nav.sidebar.navbar {

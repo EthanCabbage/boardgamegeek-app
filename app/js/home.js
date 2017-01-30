@@ -40,14 +40,12 @@ $(document).ready(function () {
 	$.get("homepage.html", function(data) {
 		$("#page-content").html(data);
 	});
-	$("#page-title").text("BoardGameGeek");
 
 	$("#navbar-search").click(function() {
 		setActiveItem(this);
 		$.get("search.html", function(data) {
 			$("#page-content").html(data);
 		});
-		$("#page-title").text("Search");
 	});
 
 	$("#navbar-home").click(function() {
@@ -55,7 +53,6 @@ $(document).ready(function () {
 		$.get("homepage.html", function(data) {
 			$("#page-content").html(data);
 		});
-		$("#page-title").text("BoardGameGeek");
 	});
 
 	$("#navbar-hotness").click(function() {
@@ -63,6 +60,5 @@ $(document).ready(function () {
 		$.get("hotness.html", function(data) {
 			$("#page-content").html(data);
 		});
-		$("#page-title").text("The Hotness");
 	});
 });
