@@ -10,6 +10,11 @@ body {
   min-width: 768px;
 }
 
+a, a:hover, a:focus {
+  text-decoration: none;
+  color: #000;
+}
+
 .no-side-padding {
   padding-left: 0;
   padding-right: 0;
@@ -26,4 +31,15 @@ body {
 
 .center-text {
   text-align: center;
+}
+
+.center-vertically {
+  display: block;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  align-items: center;
 }

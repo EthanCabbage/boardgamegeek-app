@@ -27,7 +27,16 @@ $(document).ready(function () {
       populateHotCompany("boardgamecompany");
       break;
   }
+  
+  $("#hotness-list").on("click", "li>", function() {
+    console.log("GSKDFLSKDJF");
+    $("#modal-game-detail").modal("show");
+  });
 });
+
+function showModalGameDetail() {
+  $("#modal-game-detail").modal("show");
+}
 
 function populateHotGames() {
   $.ajax({
@@ -62,23 +71,17 @@ function populateHotGames() {
           var year_published = $(this).find("yearpublished").attr("value");
 
           hotness_list.append(
-            "<li>" +
+            "<li onclick='showModalGameDetail()'>" +
               "<div class='row'>" +
-                "<div class='col-sm-2'>" +
+                "<div class='col-sm-3'>" +
                   "<img src='http:" + thumbnail + "'>" +
-                "</div>" +
-                "<div class='col-sm-1'>" +
-                  "<hr width='1' size='500'>" +
                 "</div>" +
                 "<div class='col-sm-6 center-vertical'>" +
                   "<a href='#'>" +
                     name +
                   "</a>" +
                 "</div>" +
-                "<div class='col-sm-1'>" +
-                  "<hr width='1' size='500'>" +
-                "</div>" +
-                "<div class='col-sm-2 center-text center-vertical'>" +
+                "<div class='col-sm-3 center-text center-vertical'>" +
                     year_published +
                 "</div>" +
               "</div>" +
