@@ -10,5 +10,8 @@
   "author": "Ethan Cabbage",
   "devDependencies": {
     "electron": "^1.4.13"
+  },
+  "dependencies": {
+    "mustache": "^2.3.0"
   }
 }

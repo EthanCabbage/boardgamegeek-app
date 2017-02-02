@@ -32,3 +32,21 @@
 		</div>
 	</div>
 </div>
+
+<script type="x-tmpl-mustache" id="hotness-row">
+	<li onclick="showModalGameDetail({{game_id}})">
+		<div class="row">
+			<div class="col-sm-3">
+				<img src="http:{{thumbnail}}">
+			</div>
+			<div class="col-sm-6 center-vertical">
+				<a href="#">
+					{{name}}
+				</a>
+			</div>
+			<div class="col-sm-3 center-text center-vertical">
+				{{year_published}}
+			</div>
+		</div>
+	</li>
+</script>

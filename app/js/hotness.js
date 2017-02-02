@@ -48,20 +48,9 @@ function populateHotGames() {
       hotness_contents.empty();
       hotness_contents.append("<ul id='hotness-list'></ul>");
       var hotness_list = $("#hotness-list");
-
-      //hotness_list.parent().prepend(
-        //"<div class='row'>" +
-          //"<div class='col-sm-3 center-text header-row first-header'>" +
-            //"Box Art" +
-          //"</div>" +
-          //"<div class='col-sm-6 center-text header-row'>" +
-            //"Title" +
-          //"</div>" +
-          //"<div class='col-sm-3 center-text header-row last-header'>" +
-            //"Year Published" +
-          //"</div>" +
-        //"</div>"
-      //);
+      
+      var template = $("#hotness-row").html();
+      Mustache.parse(template);
 
       $(result).find("items").each(function() {
         $(this).find("item").each(function() {
@@ -70,23 +59,10 @@ function populateHotGames() {
           var name = $(this).find("name").attr("value");
           var year_published = $(this).find("yearpublished").attr("value");
 
-          hotness_list.append(
-            "<li onclick='showModalGameDetail()'>" +
-              "<div class='row'>" +
-                "<div class='col-sm-3'>" +
-                  "<img src='http:" + thumbnail + "'>" +
-                "</div>" +
-                "<div class='col-sm-6 center-vertical'>" +
-                  "<a href='#'>" +
-                    name +
-                  "</a>" +
-                "</div>" +
-                "<div class='col-sm-3 center-text center-vertical'>" +
-                    year_published +
-                "</div>" +
-              "</div>" +
-            "</li>"
-          );
+          var game_info = {"game_id": id, "thumbnail": thumbnail, "name": name, "year_published": year_published};
+          
+          var rendered = Mustache.render(template, game_info);
+          hotness_list.append(rendered);
         });
       });
     },
