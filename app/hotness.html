@@ -1,9 +1,15 @@
 <!-- Custom CSS -->
+<!---------------->
 <link href="css/hotness.css" rel="stylesheet">
 
+
 <!-- JavaScript -->
+<!---------------->
 <script type="text/javascript" src="js/hotness.js"></script>
 
+
+<!-- Page Structure -->
+<!-------------------->
 <div class="container no-side-padding no-side-margin">
   <div class="row content-tab-container">
     <div class="col-sm-4 content-tab first-tab active" id="hot-games"><a href="#">Games</a></div>
@@ -11,42 +17,121 @@
     <div class="col-sm-4 content-tab last-tab" id="hot-companies"><a href="#">Companies</a></div>
   </div>
   <div id="hotness-contents">
+    <div class="center">
+    <img id="hotness-loading-gif" src="images/ajax-loader.gif">
+    </div>
     <ul id="hotness-list"></ul>
   </div>
 </div>
 
+
 <!-- Modals -->
-<div id="modal-game-detail" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Game Details</h4>
-			</div>
-			<div class="modal-body">
-				
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
+<!------------>
+
+<!-- hotness details -->
+<div id="modal-hotness-detail" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<script type="x-tmpl-mustache" id="hotness-row">
-	<li onclick="showModalGameDetail({{game_id}})">
-		<div class="row">
-			<div class="col-sm-3">
-				<img src="http:{{thumbnail}}">
-			</div>
-			<div class="col-sm-6 center-vertical">
-				<a href="#">
-					{{name}}
-				</a>
-			</div>
-			<div class="col-sm-3 center-text center-vertical">
-				{{year_published}}
-			</div>
-		</div>
-	</li>
+
+<!-- Micro Templates -->
+<!--------------------->
+
+<!-- three-column row -->
+<script type="x-tmpl-mustache" id="hotness-row-three">
+  <li onclick="showModalGameDetail({{game_id}})">
+    <div class="row">
+      <div class="col-sm-3">
+        <img src="http:{{thumbnail}}">
+      </div>
+      <div class="col-sm-6 center-vertical">
+        <a href="#">
+          {{name}}
+        </a>
+      </div>
+      <div class="col-sm-3 center-text center-vertical">
+        {{year_published}}
+      </div>
+    </div>
+  </li>
+</script>
+
+<!-- two-column row -->
+<script type="x-tmpl-mustache" id="hotness-row-two">
+  <li onclick="showModal{{topic}}Detail({{id}})">
+    <div class="row">
+      <div class="col-sm-3">
+        <img src="http:{{thumbnail}}">
+      </div>
+      <div class="col-sm-9 center-vertical">
+        <a href="#">{{name}}</a>
+      </div>
+    </div>
+  </li>
+</script>
+
+<!-- game detail -->
+<script type="x-tmpl-mustache" id="game-detail-contents">
+  <div class="row thick-row">
+    <div class="col-sm-3" id="game-detail-rating">{{rating}}</div>
+    <div class="col-sm-9" id="game-detail-rating-comment-links">
+      <a href="{{rating-link}}">{{numratings}} Ratings</a>
+       & 
+      <a href="{{comment-link}}">{{numcomments}} Comments</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6" id="game-detail-numplayers">{{numplayers}}</div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5" id="game-detail-designer">Designer</div>
+  </div>
+  <div class="row thin-row">
+    <div class="col-sm-6" id="game-detail-numplayers-desc">
+      <a href="{{numplayers-link}}">{{numplayers-community}}</a>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5" id="game-detail-designer-desc">
+      <a href="{{designer-link}}">{{designer}}</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3" id="game-detail-playingtime">{{playingtime}}</div>
+    <div class="col-sm-3" id="game-detail-playerage">{{playerage}}</div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5" id="game-detail-artists">Artists</div>
+  </div>
+  <div class="row thin-row">
+    <div class="col-sm-3" id="game-detail-playingtime-desc">Playing Time</div>
+    <div class="col-sm-3" id="game-detail-playerage-desc">
+      <a href="{{playerage-link}}">{{playerage-community}}</a>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5" id="game-detail-artists-desc">
+      <a href="{{artists-link}}">{{artists}}</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6" id="game-detail-myrating"></div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5" id="game-detail-publisher">Publisher</div>
+  </div>
+  <div class="row thin-row">
+    <div class="col-sm-6" id="game-detail-myrating-desc">My rating</div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5" id="game-detail-publisher-desc">
+      <a href="{{publisher-link}}">{{publisher}}</a>
+    </div>
+  </div>
 </script>

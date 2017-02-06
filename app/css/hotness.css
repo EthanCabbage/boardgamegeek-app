@@ -3,15 +3,15 @@
 
 .container {
   background-color: #fff;
-  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.15);
-  border-radius: 3px 3px 3px 3px;
-  border: 1px #000 solid;
+  box-shadow      : 0 2px 4px 2px rgba(0, 0, 0, 0.15);
+  border-radius   : 3px 3px 3px 3px;
+  border          : 1px #000 solid;
 }
 
 .content-tab-container {
-  border-radius: 3px 3px 0px 0px;
+  border-radius   : 3px 3px 0px 0px;
   background-color: #1d3b59;
-  height: 40px;
+  height          : 40px;
 }
 
 #content {
@@ -19,12 +19,12 @@
 }
 
 .content-tab {
-  text-align: center;
+  text-align     : center;
   text-decoration: none;
-  cursor: pointer;
-  height: 40px;
-  padding-top: 10px;
-  border-left: 1px #000 solid;
+  cursor         : pointer;
+  height         : 40px;
+  padding-top    : 10px;
+  border-left    : 1px #000 solid;
 }
 
 .content-tab:hover {
@@ -45,8 +45,8 @@
 
 .content-tab.active {
   background-color: #142a40;
-  color: #fff;
-  font-weight: bold;
+  color           : #fff;
+  font-weight     : bold;
 }
 
 .content-tab.active>a {
@@ -55,7 +55,7 @@
 
 .content-tab.first-tab {
   border-radius: 3px 0px 0px 0px;
-  border: none;
+  border       : none;
 }
 
 .content-tab.last-tab {
@@ -71,24 +71,24 @@
 }
 
 img {
-  display: block;
-  max-height: 120px;
-  max-width: 120px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 12px;
-  margin-bottom: 12px;
+  display       : block;
+  max-height    : 120px;
+  max-width     : 120px;
+  margin-left   : auto;
+  margin-right  : auto;
+  margin-top    : 12px;
+  margin-bottom : 12px;
   vertical-align: middle;
 }
 
 #hotness-list>li {
-  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.15);
-  border: 1px #000 solid;
-  border-radius: 3px;
-  cursor: pointer;
-  margin: 12px;
+  box-shadow     : 0 2px 4px 2px rgba(0, 0, 0, 0.15);
+  border         : 1px #000 solid;
+  border-radius  : 3px;
+  cursor         : pointer;
+  margin         : 12px;
   list-style-type: none;
-  height: 144px;
+  height         : 144px;
 }
 
 #hotness-list>li:hover, #hotness-list>li:focus {
@@ -107,7 +107,7 @@ img {
 
   img {
     max-height: 160px;
-    max-width: 160px;
+    max-width : 160px;
   }
 
   #hotness-list>li {
