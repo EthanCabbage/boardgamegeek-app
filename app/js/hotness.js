@@ -64,20 +64,50 @@ function showModalGameDetail(game_id) {
           switch($poll.attr("name")) {
             // Get the results of the poll for the suggested number of players
             case "suggested_numplayers":
-              var results_dict = {};
+              var results_dict_numplayers = {};
 
               $poll.find("results").each(function() {
                 var $results = $(this);
-                results_dict[$results.attr("numplayers")] = {};
+                results_dict_numplayers[$results.attr("numplayers")] = {};
 
                 $results.find("result").each(function() {
                   var $result = $(this);
 
-                  results_dict[$results.attr("numplayers")][$result.attr("value")] = $result.attr("numvotes");
+                  results_dict_numplayers[$results.attr("numplayers")][$result.attr("value")] = $result.attr("numvotes");
                 })
               });
 
               // Find the result with the highest "best" score, then put that number into the game_info_dict
+              var max_votes = 0;
+              var highest   = {"numplayers": 0, "numvotes": 0};
+              var second    = {"numplayers": 0, "numvotes": 0};
+              for (var numplayers in results_dict_numplayers) {
+                if (results_dict_numplayers.hasOwnProperty(numplayers)) {
+                  var votes_best = parseInt(results_dict_numplayers[numplayers]["Best"]);
+                  if (votes_best > max_votes) {
+                    if (second["numvotes"] < highest["numvotes"]) {
+                      second["numplayers"] = highest["numplayers"];
+                      second["numvotes"]   = highest["numvotes"];
+                    }
+                    highest["numplayers"] = parseInt(numplayers);
+                    highest["numvotes"]   = votes_best;
+                    max_votes = votes_best;
+                  }
+                  else if (votes_best == max_votes) {
+                    highest["numplayers"] = parseInt(numplayers);
+                    highest["numvotes"]   = votes_best;
+                  }
+                }
+              }
+
+              // Only use '1-4' format if the highest doesn't have 1.5x the votes of the second highest
+              if (second["numplayers"] == 0 || highest["numvotes"] / second["numvotes"] >= 1.5) {
+                game_info_dict["suggested_numplayers"] = highest["numplayers"].toString();
+              }
+              else {
+                game_info_dict["suggested_numplayers"] = second["numplayers"] + "-" + highest["numplayers"];
+              }
+
               break;
 
             case "suggested_playerage":
@@ -90,12 +120,12 @@ function showModalGameDetail(game_id) {
           }
         });
       });
-
+      
       var template = $("#game-detail-contents").html();
       var rendered = Mustache.render(template, game_info_dict);
 
-      $("modal-hotness-detail-body").html(rendered);
-      $("modal-hotness-detail-body").modal("show");
+      $("#modal-hotness-detail-body").html(rendered);
+      $("#modal-hotness-detail").modal("show");
     },
     error: function(message) {
 
