@@ -56,7 +56,7 @@ function showModalGameDetail(game_id) {
         game_info_dict["playingtime"]   = $game_item.find("playingtime").attr("value");
         game_info_dict["minplaytime"]   = $game_item.find("minplaytime").attr("value");
         game_info_dict["maxplaytime"]   = $game_item.find("maxplaytime").attr("value");
-        game_info_dict["minage"]        = $game_item.find("minage").attr("value");
+        game_info_dict["minage"]        = $game_item.find("minage").attr("value") + "+";
 
         $game_item.find("poll").each(function() {
           var $poll = $(this);
@@ -89,6 +89,7 @@ function showModalGameDetail(game_id) {
                       second["numplayers"] = highest["numplayers"];
                       second["numvotes"]   = highest["numvotes"];
                     }
+                    
                     highest["numplayers"] = parseInt(numplayers);
                     highest["numvotes"]   = votes_best;
                     max_votes = votes_best;
@@ -111,11 +112,58 @@ function showModalGameDetail(game_id) {
               break;
 
             case "suggested_playerage":
+              $poll.find("results").each(function() {
+                var $results = $(this);
+                var highest  = {"value": "", "numvotes": 0};
+                
+                $results.find("result").each(function() {
+                  var $result       = $(this);
+                  var current_votes = parseInt($result.attr("numvotes"));
 
+                  if (current_votes > highest["numvotes"]) {
+                    highest["value"]    = $result.attr("value");
+                    highest["numvotes"] = current_votes;
+                  }                  
+                })
+                
+                // Add either '(no votes)', 'num+', or 'num and up'
+                if (highest["numvotes"] == 0) {
+                  game_info_dict["suggested_playerage"] = "(no votes)";
+                }
+                else if (highest["value"].length > 2) {
+                  game_info_dict["suggested_playerage"] = highest["value"];  
+                }
+                else {
+                  game_info_dict["suggested_playerage"] = highest["value"] + "+";
+                }
+              });
+              debugger;
               break;
 
             case "language_dependence":
-
+              $poll.find("results").each(function() {
+                var $results = $(this);
+                var highest  = {"level": "", "value": "", "numvotes": 0};
+                
+                $results.find("result").each(function() {
+                  var $result       = $(this);
+                  var current_votes = parseInt($result.attr("numvotes"));
+                  
+                  if (current_votes > highest["numvotes"]) {
+                    highest["level"]    = $result.attr("level");
+                    highest["value"]    = $result.attr("value");
+                    highest["numvotes"] = current_votes;
+                  }
+                })
+                  
+                if (highest["numvotes"] == 0) {
+                  game_info_dict["language_dependence"] = "(no votes)";
+                }
+                else {
+                  game_info_dict["language_dependence"] = highest["value"];
+                }
+              });
+              debugger;
               break;
           }
         });
