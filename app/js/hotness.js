@@ -57,6 +57,7 @@ function showModalGameDetail(game_id) {
         game_info_dict["minplaytime"]   = $game_item.find("minplaytime").attr("value");
         game_info_dict["maxplaytime"]   = $game_item.find("maxplaytime").attr("value");
         game_info_dict["minage"]        = $game_item.find("minage").attr("value") + "+";
+        game_info_dict["player_plural"] = "";
 
         $game_item.find("poll").each(function() {
           var $poll = $(this);
