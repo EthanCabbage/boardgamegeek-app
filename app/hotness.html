@@ -88,7 +88,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-6" id="game-detail-numplayers">{{minplayers}} Players</div>
+    <div class="col-sm-6" id="game-detail-numplayers">{{numplayers}}</div>
     <div class="col-sm-1"></div>
     <div class="col-sm-5" id="game-detail-designer">Designer</div>
   </div>  
@@ -98,7 +98,7 @@
     </div>
     <div class="col-sm-1"></div>
     <div class="col-sm-5" id="game-detail-designer-desc">
-      <a href="{{designer-link}}">{{designer}}</a>
+      <a href="{{designer-link}}">{{#boardgamedesigners}}{{value}}{{#comma}}, {{/comma}}{{/boardgamedesigners}}</a>
     </div>
   </div>
   <div class="row">
@@ -114,7 +114,7 @@
     </div>
     <div class="col-sm-1"></div>
     <div class="col-sm-5" id="game-detail-artists-desc">
-      <a href="{{artists-link}}">{{artists}}</a>
+      <a href="{{artists-link}}">{{#boardgameartists}}{{value}}{{#comma}}, {{/comma}}{{/boardgameartists}}</a>
     </div>
   </div>
   <div class="row">
@@ -126,7 +126,15 @@
     <div class="col-sm-6" id="game-detail-myrating-desc">My rating</div>
     <div class="col-sm-1"></div>
     <div class="col-sm-5" id="game-detail-publisher-desc">
-      <a href="{{publisher-link}}">{{publisher}}</a>
+      <a href="{{publisher-link}}">{{#boardgamepublishers}}{{value}}{{#comma}}, {{/comma}}{{/boardgamepublishers}}</a>
+    </div>
+  </div>
+  <div class="row thin-row">
+    <hr>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      {{{description}}}
     </div>
   </div>
 </script>

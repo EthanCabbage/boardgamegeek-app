@@ -47,17 +47,24 @@ function showModalGameDetail(game_id) {
 
       $(result).find("items").each(function() {
         var $game_item                  = $(this).find("item");
+        game_info_dict["id"]            = $game_item.attr("id");
         game_info_dict["name"]          = $game_item.find("name").attr("value");
         game_info_dict["image"]         = $game_item.find("image").text();
         game_info_dict["description"]   = $game_item.find("description").text();
         game_info_dict["yearpublished"] = $game_item.find("yearpublished").attr("value");
-        game_info_dict["minplayers"]    = $game_item.find("minplayers").attr("value");
-        game_info_dict["maxplayers"]    = $game_item.find("maxplayers").attr("value");
         game_info_dict["playingtime"]   = $game_item.find("playingtime").attr("value");
         game_info_dict["minplaytime"]   = $game_item.find("minplaytime").attr("value");
         game_info_dict["maxplaytime"]   = $game_item.find("maxplaytime").attr("value");
         game_info_dict["minage"]        = $game_item.find("minage").attr("value") + "+";
-        game_info_dict["player_plural"] = "";
+
+        var minplayers = $game_item.find("minplayers").attr("value");
+        var maxplayers = $game_item.find("maxplayers").attr("value");
+        if (maxplayers == "1") {
+          game_info_dict["numplayers"] = "1 Player";
+        }
+        else {
+          game_info_dict["numplayers"] = minplayers + "-" + maxplayers + " Players";
+        }
 
         $game_item.find("poll").each(function() {
           var $poll = $(this);
@@ -78,36 +85,95 @@ function showModalGameDetail(game_id) {
                 })
               });
 
-              // Find the result with the highest "best" score, then put that number into the game_info_dict
-              var max_votes = 0;
-              var highest   = {"numplayers": 0, "numvotes": 0};
-              var second    = {"numplayers": 0, "numvotes": 0};
+              var max_votes_best         = 0;
+              var maxplayers_best        = {"numplayers": 0, "numvotes": 0};
+              var minplayers_best        = {"numplayers": 0, "numvotes": 0};
+              var max_votes_recommended  = 0
+              var minplayers_recommended = {"numplayers": "", "numvotes": 0};
+              var maxplayers_recommended = {"numplayers": "", "numvotes": 0};
               for (var numplayers in results_dict_numplayers) {
                 if (results_dict_numplayers.hasOwnProperty(numplayers)) {
+                  // Find the result with the highest "best" score, then put that number into the game_info_dict
                   var votes_best = parseInt(results_dict_numplayers[numplayers]["Best"]);
-                  if (votes_best > max_votes) {
-                    if (second["numvotes"] < highest["numvotes"]) {
-                      second["numplayers"] = highest["numplayers"];
-                      second["numvotes"]   = highest["numvotes"];
+
+                  if (votes_best > max_votes_best) {
+                    if (minplayers_best["numvotes"] < maxplayers_best["numvotes"]) {
+                      minplayers_best["numplayers"] = maxplayers_best["numplayers"];
+                      minplayers_best["numvotes"]   = maxplayers_best["numvotes"];
                     }
                     
-                    highest["numplayers"] = parseInt(numplayers);
-                    highest["numvotes"]   = votes_best;
-                    max_votes = votes_best;
+                    maxplayers_best["numplayers"] = parseInt(numplayers);
+                    maxplayers_best["numvotes"]   = votes_best;
+                    max_votes_best = votes_best;
                   }
-                  else if (votes_best == max_votes) {
-                    highest["numplayers"] = parseInt(numplayers);
-                    highest["numvotes"]   = votes_best;
+                  else if (votes_best == max_votes_best) {
+                    maxplayers_best["numplayers"] = parseInt(numplayers);
+                    maxplayers_best["numvotes"]   = votes_best;
+                  }
+
+                  // Find the result with the highest "recommended" score, then put that number into the game_info_dict
+                  var votes_recommended = parseInt(results_dict_numplayers[numplayers]["Recommended"]);
+
+                  if (votes_recommended > max_votes_recommended) {
+                    max_votes_recommended = votes_recommended;
+                  }
+
+                  if (votes_recommended > 0 && numplayers.indexOf("+") <= -1) {
+                    maxplayers_recommended["numplayers"] = numplayers;
+                    maxplayers_recommended["numvotes"]   = votes_recommended;
+
+                    if (minplayers_recommended["numplayers"] == 0) {
+                      minplayers_recommended["numplayers"] = numplayers;
+                      minplayers_recommended["numvotes"]   = votes_recommended;                      
+                    }
+                  }
+                  else if (votes_recommended > 0 && numplayers.indexOf("+") > -1) {
+                    if (max_votes_recommended / votes_recommended < 1.5) {
+                      maxplayers_recommended["numplayers"] = numplayers;
+                      maxplayers_recommended["numvotes"]   = votes_recommended;
+
+                      if (minplayers_recommended["numplayers"] == 0) {
+                        minplayers_recommended["numplayers"] = numplayers;
+                        minplayers_recommended["numvotes"]   = votes_recommended;                      
+                      }
+                    }
                   }
                 }
               }
 
-              // Only use '1-4' format if the highest doesn't have 1.5x the votes of the second highest
-              if (second["numplayers"] == 0 || highest["numvotes"] / second["numvotes"] >= 1.5) {
-                game_info_dict["suggested_numplayers"] = highest["numplayers"].toString();
+              // First list the community's recommended values
+              if (maxplayers_recommended["numvotes"] == 0) {
+                game_info_dict["suggested_numplayers"] = "Community: (no votes)";
               }
+              // Only list a single number if max and min are the same
+              else if (minplayers_recommended["numplayers"] == "" 
+                    || maxplayers_recommended["numplayers"] == minplayers_recommended["numplayers"]) {
+                game_info_dict["suggested_numplayers"] = "Community: " 
+                                                         + minplayers_recommended["numplayers"];
+              }
+              // Otherwise use the '1-4' format
               else {
-                game_info_dict["suggested_numplayers"] = second["numplayers"] + "-" + highest["numplayers"];
+                game_info_dict["suggested_numplayers"] = "Community: "
+                                                         + minplayers_recommended["numplayers"]
+                                                         + "-"
+                                                         + maxplayers_recommended["numplayers"];
+              }
+
+              // Then list the community's best values
+              if (maxplayers_best["numvotes"] == 0) { }
+              // Only list a single number if maxplayers_best doesn't have 1.5x the votes of minplayers_best or if max and min are the same
+              else if (minplayers_best["numplayers"] == 0 
+                    || maxplayers_best["numvotes"] / minplayers_best["numvotes"] >= 1.5
+                    || maxplayers_best["numplayers"] == minplayers_best["numplayers"]) {
+                game_info_dict["suggested_numplayers"] += ", Best: " 
+                                                          + maxplayers_best["numplayers"];
+              }
+              // Otherwise use the '1-4' format
+              else {
+                game_info_dict["suggested_numplayers"] += ", Best: " 
+                                                          + minplayers_best["numplayers"] 
+                                                          + "-" 
+                                                          + maxplayers_best["numplayers"];
               }
 
               break;
@@ -138,7 +204,7 @@ function showModalGameDetail(game_id) {
                   game_info_dict["suggested_playerage"] = highest["value"] + "+";
                 }
               });
-              debugger;
+
               break;
 
             case "language_dependence":
@@ -164,10 +230,103 @@ function showModalGameDetail(game_id) {
                   game_info_dict["language_dependence"] = highest["value"];
                 }
               });
-              debugger;
+
               break;
           }
         });
+
+        var boardgamecategory_list  = [];
+        var boardgamemechanic_list  = [];
+        var boardgamefamily_list    = [];
+        var boardgamedesigner_list  = [];
+        var boardgameartist_list    = [];
+        var boardgamepublisher_list = [];
+
+        $game_item.find("link").each(function() {
+          var $link = $(this);
+
+          switch($link.attr("type")) {
+            case "boardgamecategory":
+              boardgamecategory_list.push({
+                "id"    : $link.attr("id"),
+                "value" : $link.attr("value"),
+                "comma" : true
+              });
+
+              break;
+
+            case "boardgamemechanic":
+              boardgamemechanic_list.push({
+                "id"    : $link.attr("id"),
+                "value" : $link.attr("value"),
+                "comma" : true
+              });
+
+              break;
+
+            case "boardgamefamily":
+              boardgamefamily_list.push({
+                "id"    : $link.attr("id"),
+                "value" : $link.attr("value"),
+                "comma" : true
+              });
+
+              break;
+
+            case "boardgamedesigner":
+              boardgamedesigner_list.push({
+                "id"    : $link.attr("id"),
+                "value" : $link.attr("value"),
+                "comma" : true
+              });
+
+              break;
+
+            case "boardgameartist":
+              boardgameartist_list.push({
+                "id"    : $link.attr("id"),
+                "value" : $link.attr("value"),
+                "comma" : true
+              });
+
+              break;
+
+            case "boardgamepublisher":
+              boardgamepublisher_list.push({
+                "id"    : $link.attr("id"),
+                "value" : $link.attr("value"),
+                "comma" : true
+              });
+
+              break;
+          }
+        });
+
+        if (boardgamecategory_list.length > 0) {
+          delete boardgamecategory_list[boardgamecategory_list.length - 1]["comma"];
+        }
+        if (boardgamemechanic_list.length > 0) {
+          delete boardgamemechanic_list[boardgamemechanic_list.length - 1]["comma"];
+        }
+        if (boardgamefamily_list.length > 0) {
+          delete boardgamefamily_list[boardgamefamily_list.length - 1]["comma"];
+        }
+        if (boardgamedesigner_list.length > 0) {
+          delete boardgamedesigner_list[boardgamedesigner_list.length - 1]["comma"];
+        }
+        if (boardgameartist_list.length > 0) {
+          delete boardgameartist_list[boardgameartist_list.length - 1]["comma"];
+        }
+        if (boardgamepublisher_list.length > 0) {
+          delete boardgamepublisher_list[boardgamepublisher_list.length - 1]["comma"];
+        }
+
+        game_info_dict["boardgamecategories"] = boardgamecategory_list;
+        game_info_dict["boardgamemechanics"] = boardgamemechanic_list;
+        game_info_dict["boardgamefamilies"] = boardgamefamily_list;
+        game_info_dict["boardgamedesigners"] = boardgamedesigner_list;
+        game_info_dict["boardgameartists"] = boardgameartist_list;
+        game_info_dict["boardgamepublishers"] = boardgamepublisher_list;
       });
       
       var template = $("#game-detail-contents").html();
@@ -177,7 +336,7 @@ function showModalGameDetail(game_id) {
       $("#modal-hotness-detail").modal("show");
     },
     error: function(message) {
-
+      console.log(message.responseText);
     }
   });
 }
