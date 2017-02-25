@@ -1,3 +1,20 @@
+// On load, generate content for the active tab
+$(document).ready(function() {
+  var active_tab = $(".content-tab.active");
+  switch (active_tab.text()) {
+    case "Games":
+      populateHotGames();
+      break;
+    case "People":
+      populateHotPeople();
+      break;
+    case "Companies":
+      populateHotCompany("boardgamecompany");
+      break;
+  }
+});
+
+
 // Switch tabs between Games, People, and Companies and generate content
 $(".content-tab").click(function() {
   setActiveItem(this);
@@ -11,23 +28,6 @@ $(".content-tab").click(function() {
       break;
     case "Companies":
       populateHotCompany();
-      break;
-  }
-});
-
-
-// On load, generate content for the active tab
-$(document).ready(function() {
-  var active_tab = $(".content-tab.active");
-  switch (active_tab.text()) {
-    case "Games":
-      populateHotGames();
-      break;
-    case "People":
-      populateHotPeople();
-      break;
-    case "Companies":
-      populateHotCompany("boardgamecompany");
       break;
   }
 });
@@ -333,6 +333,25 @@ function showModalGameDetail(game_id) {
       var rendered = Mustache.render(template, game_info_dict);
 
       $("#modal-hotness-detail-body").html(rendered);
+      $("#modal-hotness-detail-header").text(game_info_dict["name"]);
+
+      $(".rating").hover(
+        function() {
+          $(this).removeClass("glyphicon-star");
+          $(this).addClass("glyphicon-star-empty");
+
+          $(this).prevAll().removeClass("glyphicon-star");
+          $(this).prevAll().addClass("glyphicon-star-empty");
+        },
+        function() {
+          $(this).removeClass("glyphicon-star-empty");
+          $(this).addClass("glyphicon-star");
+
+          $(this).prevAll().removeClass("glyphicon-star-empty");
+          $(this).prevAll().addClass("glyphicon-star");
+        }
+      );
+      
       $("#modal-hotness-detail").modal("show");
     },
     error: function(message) {

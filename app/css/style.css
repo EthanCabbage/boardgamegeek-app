@@ -44,7 +44,28 @@ color           : #000;
   align-items         : center;
 }
 
-.thin-row {
-  line-height : 70%;
-  font-size   : 70%;
+.glyphicon-star {
+  color: #7f7f7f;
+}
+
+.modal-header {
+  text-align : center;
+}
+
+.modal.fade.in {
+  z-index : 8050;
+}
+
+.row-padded {
+  padding : 4px 0;
+}
+
+.row.thin-row {
+  line-height   : 100%;
+  font-size     : 70%;
+  margin-bottom : 8px;
+}
+
+.rating:hover {
+  cursor: pointer;
 }

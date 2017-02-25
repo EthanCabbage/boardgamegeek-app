@@ -30,7 +30,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"></h4>
+        <h4 class="modal-title" id=modal-hotness-detail-header></h4>
       </div>
       <div class="modal-body" id="modal-hotness-detail-body">
       </div>
@@ -78,16 +78,16 @@
 </script>
 
 <!-- game detail -->
-<script type="x-tmpl-mustache" id="game-detail-contents">
-  <div class="row thick-row">
+<!--   <div class="row thick-row">
     <div class="col-sm-3" id="game-detail-rating">{{rating}}</div>
     <div class="col-sm-9" id="game-detail-rating-comment-links">
       <a href="{{rating-link}}">{{numratings}} Ratings</a>
        & 
       <a href="{{comment-link}}">{{numcomments}} Comments</a>
     </div>
-  </div>
-  <div class="row">
+  </div> -->
+<script type="x-tmpl-mustache" id="game-detail-contents">
+  <div class="row row-padded">
     <div class="col-sm-6" id="game-detail-numplayers">{{numplayers}}</div>
     <div class="col-sm-1"></div>
     <div class="col-sm-5" id="game-detail-designer">Designer</div>
@@ -101,24 +101,26 @@
       <a href="{{designer-link}}">{{#boardgamedesigners}}{{value}}{{#comma}}, {{/comma}}{{/boardgamedesigners}}</a>
     </div>
   </div>
-  <div class="row">
+  <div class="row row-padded">
     <div class="col-sm-3" id="game-detail-playingtime">{{playingtime}} Min</div>
-    <div class="col-sm-3" id="game-detail-playerage">{{minage}}</div>
+    <div class="col-sm-3" id="game-detail-playerage">Age: {{minage}}</div>
     <div class="col-sm-1"></div>
     <div class="col-sm-5" id="game-detail-artists">Artists</div>
   </div>
   <div class="row thin-row">
     <div class="col-sm-3" id="game-detail-playingtime-desc">Playing Time</div>
     <div class="col-sm-3" id="game-detail-playerage-desc">
-      <a href="{{playerage-link}}">{{suggested_playerage}}</a>
+      <a href="{{playerage-link}}">Community: {{suggested_playerage}}</a>
     </div>
     <div class="col-sm-1"></div>
     <div class="col-sm-5" id="game-detail-artists-desc">
       <a href="{{artists-link}}">{{#boardgameartists}}{{value}}{{#comma}}, {{/comma}}{{/boardgameartists}}</a>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-6" id="game-detail-myrating"></div>
+  <div class="row row-padded">
+    <div class="col-sm-6" id="game-detail-myrating">
+      <i class="rating glyphicon glyphicon-star" data-starnumber="1"></i><i class="rating glyphicon glyphicon-star" data-starnumber="2"></i><i class="rating glyphicon glyphicon-star" data-starnumber="3"></i><i class="rating glyphicon glyphicon-star" data-starnumber="4"></i><i class="rating glyphicon glyphicon-star" data-starnumber="5"></i><i class="rating glyphicon glyphicon-star" data-starnumber="6"></i><i class="rating glyphicon glyphicon-star" data-starnumber="7"></i><i class="rating glyphicon glyphicon-star" data-starnumber="8"></i><i class="rating glyphicon glyphicon-star" data-starnumber="9"></i><i class="rating glyphicon glyphicon-star" data-starnumber="10"></i>
+    </div>
     <div class="col-sm-1"></div>
     <div class="col-sm-5" id="game-detail-publisher">Publisher</div>
   </div>
