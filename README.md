@@ -1,2 +1,3 @@
 # bgg-app
-Desktop application for boardgamegeek.com created with Electron
+A desktop application for [boardgamegeek.com](http://www.boardgamegeek.com) created with Electron
+
